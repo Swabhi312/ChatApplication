@@ -1,7 +1,7 @@
 package com.chatapp.websocket.chat;
 import java.util.*;
 
-import com.chatapp.websocket.Repository.ChatApplicationRepository;
+import com.chatapp.websocket.service.ChatappService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
@@ -18,36 +18,35 @@ import org.springframework.web.bind.annotation.*;
 @Controller
 public class ChatController {
 
-    @Autowired
-    private ChatApplicationRepository chatApplicationRepository;
 
+    @Autowired private ChatappService chatappService;
     @GetMapping("/fetch/chatroom/history")
     @ResponseBody
     public List<ChatMessage> fetchChatroomHistory()
     {
-        return chatApplicationRepository.findAll();
+        return chatappService.ChatappMessages();
     }
 
     @DeleteMapping("/delete/allmessages")
     public ResponseEntity<String> DeleteChatRoomMessages()
     {
-      chatApplicationRepository.deleteAll();
+        chatappService.DeleteAllMessages();
        return ResponseEntity.ok("Chat History deleted successfully!.");
      }
 
-    @DeleteMapping("/delete/usermessages/{username}")
+  /*  @DeleteMapping("/delete/usermessages/{username}")
     public ResponseEntity<String> DeleteSpecificUserMessages(@PathVariable String username)
     {
-       // chatApplicationRepository.deleteByUsername(username);
+       chatappService.deleteByUsername(username);
         return ResponseEntity.ok("Chat History deleted successfully for given user!.");
-    }
+    }*/
 
     @MessageMapping("/chat.sendMessage")
     @SendTo("/topic/public")
     public ChatMessage sendMessage(
             @Payload ChatMessage chatMessage
     ) {
-        chatApplicationRepository.save(chatMessage);
+        chatappService.saveChatMessages(chatMessage);
         return chatMessage;
     }
 
