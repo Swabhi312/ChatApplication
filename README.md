@@ -4,8 +4,7 @@ Steps to execute project:
 
 1.git clone https://github.com/Swabhi312/ChatApplication.git in your IDE
 2.Add Run config with jdk 17 like
-![](C:\Users\abhilad1\Pictures\chat_app_config.png)
-
+![chat_app_config.png](..%2FUsers%2Fabhilad1%2FPictures%2Fchat_app_config.png)
 3. After Running you will get message like application started like below
 ![](C:\Users\abhilad1\Pictures\chat_App_run.png)
 
